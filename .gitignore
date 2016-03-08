@@ -9,3 +9,5 @@ target/*
 .idea/*
 *.zip
 derby.log
+/QA
+spring3-web.iml
