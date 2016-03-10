@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition extends="foamtec" name="appusers/create">
+        <put-attribute name="body" value="/WEB-INF/views/appusers/create.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="appusers/list">
+        <put-attribute name="body" value="/WEB-INF/views/appusers/list.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="appusers/edit">
+        <put-attribute name="body" value="/WEB-INF/views/appusers/edit.jsp"/>
+    </definition>
+
+</tiles-definitions>

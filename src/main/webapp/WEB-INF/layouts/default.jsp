@@ -20,6 +20,11 @@
     <script src="${coreJs}"></script>
     <script src="${jqueryJs}"></script>
     <script src="${bootstrapJs}"></script>
+    <script>
+        var session = {
+            context: '/' + (window.location.pathname.split('/')[1])
+        };
+    </script>
 </head>
 <body>
     <tiles:insertAttribute name="header" />

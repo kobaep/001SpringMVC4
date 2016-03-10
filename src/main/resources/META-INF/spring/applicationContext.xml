@@ -22,7 +22,8 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		  destroy-method="close">
 		<property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
-		<property name="url" value="jdbc:derby:/Users/apichat/Workspace/java-projects/001SpringMVC4/QA" />
+		<!--<property name="url" value="jdbc:derby:/Users/apichat/Workspace/java-projects/001SpringMVC4/QA" />-->
+		<property name="url" value="jdbc:derby:QA;create=true" />
 		<property name="username" value="" />
 		<property name="password" value="" />
 	</bean>
