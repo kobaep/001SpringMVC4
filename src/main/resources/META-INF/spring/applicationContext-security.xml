@@ -20,7 +20,9 @@
         <intercept-url pattern="/login/**" access="permitAll" />
         <!--<intercept-url pattern="/**" access="isAuthenticated()" />-->
         <intercept-url pattern="/appuser**" access="isAuthenticated()" />
-        <intercept-url pattern="/appuser/*" access="isAuthenticated()" />
+        <intercept-url pattern="/appuser/**" access="isAuthenticated()" />
+        <intercept-url pattern="/matter**" access="isAuthenticated()" />
+        <intercept-url pattern="/matter/**" access="isAuthenticated()" />
     </http>
     <!-- Configure Authentication mechanism -->
     <authentication-manager alias="authenticationManager">

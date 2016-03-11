@@ -11,7 +11,18 @@
 				<span class="icon-bar"></span>
 			</button>
 		</div>
-		<div class="navbar-collapse collapse" id="navbar-main">
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTMS<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<c:if test="${roleName eq 'qa'}">
+							<li><a href="${home}matter?form">Create Material Type</a></li>
+						</c:if>
+						<li><a href="${home}matterlo/listmattype">Material</a></li>
+					</ul>
+				</li>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

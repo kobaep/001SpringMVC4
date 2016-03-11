@@ -3,6 +3,7 @@ package com.psk.domain;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 @Table(name="MaterialCode")
 @Entity
-public class MaterialCode {
+public class MaterialCode implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

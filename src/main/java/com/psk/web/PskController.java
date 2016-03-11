@@ -1,12 +1,15 @@
 package com.psk.web;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Map;
 
 import com.psk.domain.AppUser;
 import com.psk.domain.Employee;
+import com.psk.domain.MaterialType;
 import com.psk.manager.AppUserManager;
 import com.psk.manager.EmployeeManager;
+import com.psk.manager.MaterialTypeManager;
 import com.psk.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +28,10 @@ public class PskController {
 	private final Logger logger = LoggerFactory.getLogger(PskController.class);
 
 	@Autowired
-	private EmployeeManager employeeManager;
+	private AppUserManager appUserManager;
 
 	@Autowired
-	private AppUserManager appUserManager;
+	private MaterialTypeManager materialTypeManager;
 
 	@RequestMapping(value = "/open", method = RequestMethod.GET)
 	public String openWindow(Map<String, Object> model) {
@@ -95,10 +98,36 @@ public class PskController {
 		return model;
 	}
 
+	@RequestMapping(value = "/matter",params = "form", method = RequestMethod.GET)
+	public ModelAndView createMatter(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+
+		}
+		model.setViewName("MTMS/create");
+		return model;
+	}
+
+	@RequestMapping(value = "/matterlo/listmattype", method = RequestMethod.GET)
+	public ModelAndView matTypeList(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		List<MaterialType> materialTypes = materialTypeManager.findAllMaterialType();
+		model.addObject("materialTypes", materialTypes);
+		model.setViewName("MTMS/matTypeList");
+		return model;
+	}
+
 	private void addMenuAndName(ModelAndView model, Principal principal) {
-		model.addObject("name", appUserManager.findAppUserByName(principal.getName()).getName());
+		AppUser appUser = appUserManager.findAppUserByName(principal.getName());
+		model.addObject("name", appUser.getName());
 		model.addObject("logout", "on");
 		model.addObject("createUser", "on");
+		model.addObject("roleName", appUser.getRoleName());
 	}
 
 	private void addLogin(ModelAndView model) {

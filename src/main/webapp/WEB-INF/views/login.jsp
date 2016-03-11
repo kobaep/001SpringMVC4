@@ -15,7 +15,7 @@
                 <div class="msg">${msg}</div>
             </c:if>
             <label for="j_username" class="sr-only">Username</label>
-            <input type="text" id="j_username" name="username" class="form-control" placeholder="Username" required autofocus>
+            <input type="text" id="j_username" name="username" class="form-control" placeholder="Username" autocomplete="off" required autofocus>
             <label for="j_password" class="sr-only">Password</label>
             <input type="password" id="j_password" name="password" class="form-control" placeholder="Password" required>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
