@@ -16,11 +16,8 @@ public class FrmsController {
 
     @RequestMapping(value = "/frms", method = RequestMethod.GET)
     public ModelAndView frmsIndex(ModelAndView model) {
-
         logger.debug("-= in FRMS INDEX =-");
         model.setViewName("FRMS-index");
-
         return model;
-
     }
 }

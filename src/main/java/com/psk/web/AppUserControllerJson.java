@@ -80,4 +80,20 @@ public class AppUserControllerJson {
             return new ResponseEntity<String>("{\"ERROR\":"+e.getMessage()+"\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @RequestMapping(value = "/appuser/datauser", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> getDataUser(Principal principal) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            JSONObject jsonObject = new JSONObject();
+            AppUser appUser = appUserManager.findAppUserByName(principal.getName());
+            jsonObject.put("name",appUser.getUsername());
+            jsonObject.put("roleName",appUser.getRoleName());
+            return new ResponseEntity<String>(jsonObject.toString(), headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"ERROR\":"+e.getMessage()+"\"}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

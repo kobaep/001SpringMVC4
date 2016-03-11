@@ -15,4 +15,6 @@ public interface AppUserManager {
 
     public AppUser findAppUser(Long id);
 
+    public AppUser findAppUserByName(String name);
+
 }

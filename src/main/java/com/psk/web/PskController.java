@@ -1,5 +1,6 @@
 package com.psk.web;
 
+import java.security.Principal;
 import java.util.Map;
 
 import com.psk.domain.AppUser;
@@ -35,26 +36,47 @@ public class PskController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Map<String, Object> model) {
-		return "index";
+	public ModelAndView index(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		model.setViewName("index");
+		return model;
 	}
 
 	@RequestMapping(value = "/appuser",params = "form", method = RequestMethod.GET)
-	public ModelAndView appUserCreate(ModelAndView model) {
+	public ModelAndView appUserCreate(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+
+		}
 		model.setViewName("appusers/create");
 		return model;
 	}
 
 	@RequestMapping(value = "/appuser/list", method = RequestMethod.GET)
-	public ModelAndView appUserList(ModelAndView model) {
+	public ModelAndView appUserList(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+
+		}
 		model.setViewName("appusers/list");
 		return model;
 	}
 
 	@RequestMapping(value = "/appuser/edit/{id}", produces = "text/html")
-	public ModelAndView engViewApprove(@PathVariable("id") Long id, ModelAndView model) {
+	public ModelAndView engViewApprove(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		try {
+			model.addObject("appuser", appUserManager.findAppUser(id));
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+
+		}
 		model.setViewName("appusers/edit");
-		model.addObject("appuser", appUserManager.findAppUser(id));
 		return model;
 	}
 
@@ -68,7 +90,18 @@ public class PskController {
 		if (logout != null) {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
+		addLogin(model);
 		model.setViewName("login");
 		return model;
+	}
+
+	private void addMenuAndName(ModelAndView model, Principal principal) {
+		model.addObject("name", appUserManager.findAppUserByName(principal.getName()).getName());
+		model.addObject("logout", "on");
+		model.addObject("createUser", "on");
+	}
+
+	private void addLogin(ModelAndView model) {
+		model.addObject("login", "on");
 	}
 }

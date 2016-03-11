@@ -46,4 +46,13 @@ public class AppUserDAOImpl implements AppUserDAO {
         cq.where(builder.equal(root.get("id"), id));
         return entityManager.createQuery(cq).getSingleResult();
     }
+
+    @Override
+    public AppUser findAppUserByName(String name) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<AppUser> cq = builder.createQuery(AppUser.class);
+        Root<AppUser> root = cq.from(AppUser.class);
+        cq.where(builder.equal(root.get("username"), name));
+        return entityManager.createQuery(cq).getSingleResult();
+    }
 }

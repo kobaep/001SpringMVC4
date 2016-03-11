@@ -14,4 +14,6 @@ public interface AppUserDAO {
     public List<AppUser> findAllAppUser();
 
     public AppUser findAppUser(Long id);
+
+    public AppUser findAppUserByName(String name);
 }

@@ -33,4 +33,9 @@ public class AppUserService implements AppUserManager{
     public AppUser findAppUser(Long id) {
         return appUserDAO.findAppUser(id);
     }
+
+    @Override
+    public AppUser findAppUserByName(String name) {
+        return appUserDAO.findAppUserByName(name);
+    }
 }
