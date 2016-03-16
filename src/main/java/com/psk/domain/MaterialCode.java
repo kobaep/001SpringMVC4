@@ -23,6 +23,9 @@ public class MaterialCode implements Serializable {
     @Column(name="createDate")
     private Date createDate;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private AppUser updateBy;
+
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     @Column(name="updateDate")
@@ -49,6 +52,14 @@ public class MaterialCode implements Serializable {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public AppUser getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(AppUser updateBy) {
+        this.updateBy = updateBy;
     }
 
     public Date getUpdateDate() {
@@ -80,6 +91,7 @@ public class MaterialCode implements Serializable {
         return "MaterialCode{" +
                 "id=" + id +
                 ", createDate=" + createDate +
+                ", updateBy=" + updateBy +
                 ", updateDate=" + updateDate +
                 ", codeName='" + codeName + '\'' +
                 ", matter=" + matter +

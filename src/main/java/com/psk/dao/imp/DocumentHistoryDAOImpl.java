@@ -22,7 +22,7 @@ public class DocumentHistoryDAOImpl implements DocumentHistoryDao{
 
     @Override
     public void insertDocumentHistory(DocumentHistory documentHistory) {
-        entityManager.persist(documentHistory);
+        entityManager.merge(documentHistory);
     }
 
     @Override

@@ -7,9 +7,11 @@ import java.util.Map;
 import com.psk.domain.AppUser;
 import com.psk.domain.Employee;
 import com.psk.domain.MaterialType;
+import com.psk.domain.Matter;
 import com.psk.manager.AppUserManager;
 import com.psk.manager.EmployeeManager;
 import com.psk.manager.MaterialTypeManager;
+import com.psk.manager.MatterManager;
 import com.psk.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,9 @@ public class PskController {
 
 	@Autowired
 	private MaterialTypeManager materialTypeManager;
+
+    @Autowired
+    private MatterManager matterManager;
 
 	@RequestMapping(value = "/open", method = RequestMethod.GET)
 	public String openWindow(Map<String, Object> model) {
@@ -98,19 +103,32 @@ public class PskController {
 		return model;
 	}
 
-	@RequestMapping(value = "/matter",params = "form", method = RequestMethod.GET)
-	public ModelAndView createMatter(ModelAndView model, Principal principal) {
+	@RequestMapping(value = "/materialTypePrivate",params = "form", method = RequestMethod.GET)
+	public ModelAndView createMatterialType(ModelAndView model, Principal principal) {
 		try {
 			addMenuAndName(model, principal);
 		} catch (Exception e) {
-
+			addLogin(model);
 		}
 		model.setViewName("MTMS/create");
 		return model;
 	}
 
-	@RequestMapping(value = "/matterlo/listmattype", method = RequestMethod.GET)
-	public ModelAndView matTypeList(ModelAndView model, Principal principal) {
+	@RequestMapping(value = "/materialType/{id}",params = "list", method = RequestMethod.GET)
+	public ModelAndView materialType(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		model.addObject("materials", materialTypeManager.findMaterialType(id).getMatters());
+		model.addObject("materialType", materialTypeManager.findMaterialType(id));
+		model.setViewName("MTMS/materialList");
+		return model;
+	}
+
+	@RequestMapping(value = "/materialType",params = "list", method = RequestMethod.GET)
+	public ModelAndView materialTypeList(ModelAndView model, Principal principal) {
 		try {
 			addMenuAndName(model, principal);
 		} catch (Exception e) {
@@ -118,7 +136,44 @@ public class PskController {
 		}
 		List<MaterialType> materialTypes = materialTypeManager.findAllMaterialType();
 		model.addObject("materialTypes", materialTypes);
-		model.setViewName("MTMS/matTypeList");
+		model.setViewName("MTMS/materialTypeList");
+		return model;
+	}
+
+	@RequestMapping(value = "/materialPrivate/{id}",params = "form", method = RequestMethod.GET)
+	public ModelAndView createMatterialType(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		model.addObject("materialType", materialTypeManager.findMaterialType(id));
+		model.setViewName("MTMS/addMaterial");
+		return model;
+	}
+
+	@RequestMapping(value = "/materialSapPrivate/{id}",params = "form", method = RequestMethod.GET)
+	public ModelAndView createMatterialSapType(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		model.addObject("materialType", materialTypeManager.findMaterialType(id));
+		model.setViewName("MTMS/addMaterialSap");
+		return model;
+	}
+
+	@RequestMapping(value = "/material/{id}",params = "list", method = RequestMethod.GET)
+	public ModelAndView materialList(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		Matter matter = matterManager.findMatter(id);
+		model.addObject("material", matter);
+		model.setViewName("MTMS/materialData");
 		return model;
 	}
 

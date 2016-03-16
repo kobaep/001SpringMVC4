@@ -23,7 +23,7 @@
 			<p>Material Management Service</p>
 			<p>ระบบบริหารจัดการส่วนงาน Material</p>
 			<p>
-				<a class="btn btn-default" href="${home}matterlo/listmattype" role="button">View details</a>
+				<a class="btn btn-default" href="${home}materialType?list" role="button">View details</a>
 			</p>
 		</div>
 		<div class="col-md-4">

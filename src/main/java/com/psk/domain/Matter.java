@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -40,6 +41,11 @@ public class Matter implements Serializable {
     @Column(name="endDate")
     private Date endDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+    @Column(name="startDate")
+    private Date startDate;
+
     @Column(name="materialName")
     private String materialName;
 
@@ -61,13 +67,16 @@ public class Matter implements Serializable {
     @Column(name="folw")
     private String folw;
 
+    @Column(name="ulNumber")
+    private String ulNumber;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "materialType")
     private MaterialType materialType;
 
     @OrderBy("createDate")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "matter")
-    private Set<MaterialCode> materialCodes;
+    private Set<MaterialCode> materialCodes = new HashSet<MaterialCode>();
 
     @OrderBy("createDate")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "matter")
@@ -119,6 +128,14 @@ public class Matter implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public String getMaterialName() {
@@ -177,6 +194,14 @@ public class Matter implements Serializable {
         this.folw = folw;
     }
 
+    public String getUlNumber() {
+        return ulNumber;
+    }
+
+    public void setUlNumber(String ulNumber) {
+        this.ulNumber = ulNumber;
+    }
+
     public MaterialType getMaterialType() {
         return materialType;
     }
@@ -210,6 +235,7 @@ public class Matter implements Serializable {
                 ", createBy=" + createBy +
                 ", updateBy=" + updateBy +
                 ", endDate=" + endDate +
+                ", startDate=" + startDate +
                 ", materialName='" + materialName + '\'' +
                 ", rohs='" + rohs + '\'' +
                 ", msds='" + msds + '\'' +
@@ -217,6 +243,7 @@ public class Matter implements Serializable {
                 ", halogen='" + halogen + '\'' +
                 ", status='" + status + '\'' +
                 ", folw='" + folw + '\'' +
+                ", ulNumber='" + ulNumber + '\'' +
                 ", materialType=" + materialType +
                 ", materialCodes=" + materialCodes +
                 ", documentHistorys=" + documentHistorys +

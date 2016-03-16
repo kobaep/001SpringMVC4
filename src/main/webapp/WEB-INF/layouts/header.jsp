@@ -4,22 +4,21 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="${home}" class="navbar-brand">FOAMTEC</a>
-			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
+			<a href="${home}" class="navbar-brand">FOAMTEC</a>
 		</div>
-		<div class="navbar-collapse collapse">
+		<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTMS<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<c:if test="${roleName eq 'qa'}">
-							<li><a href="${home}matter?form">Create Material Type</a></li>
-						</c:if>
-						<li><a href="${home}matterlo/listmattype">Material</a></li>
+						<li><a href="${home}materialTypePrivate?form">Create Material Type</a></li>
+						<li><a href="${home}materialType/?list">Material</a></li>
 					</ul>
 				</li>
 			</ul>

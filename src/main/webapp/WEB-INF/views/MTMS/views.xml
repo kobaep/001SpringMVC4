@@ -9,8 +9,25 @@
     <put-attribute name="body" value="/WEB-INF/views/MTMS/create.jsp"/>
         </definition>
 
-    <definition extends="foamtec" name="MTMS/matTypeList">
-        <put-attribute name="body" value="/WEB-INF/views/MTMS/matTypeList.jsp"/>
+    <definition extends="foamtec" name="MTMS/materialTypeList">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/materialTypeList.jsp"/>
     </definition>
+
+    <definition extends="foamtec" name="MTMS/materialList">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/materialList.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="MTMS/addMaterial">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/addMaterial.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="MTMS/addMaterialSap">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/addMaterialSap.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="MTMS/materialData">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/materialData.jsp"/>
+    </definition>
+
 
 </tiles-definitions>

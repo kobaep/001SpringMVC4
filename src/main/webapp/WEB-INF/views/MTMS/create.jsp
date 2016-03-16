@@ -7,7 +7,7 @@
         <div class="form-group">
             <label for="inputMaterialType" class="col-sm-2 control-label">Material Type</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputMaterialType" placeholder="Material Type" autocomplete="off" required>
+                <input type="text" class="form-control input-lg" id="inputMaterialType" placeholder="Material Type" autocomplete="off" required>
             </div>
         </div>
         <div class="form-group">

@@ -2,6 +2,9 @@ package com.psk.dao.imp;
 
 import com.psk.dao.MaterialTypeDAO;
 import com.psk.domain.MaterialType;
+import com.psk.domain.Matter;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -22,7 +25,7 @@ public class MaterialTypeDAOImpl implements MaterialTypeDAO{
 
     @Override
     public void insertMaterialType(MaterialType materialType) {
-        entityManager.persist(materialType);
+        entityManager.merge(materialType);
     }
 
     @Override

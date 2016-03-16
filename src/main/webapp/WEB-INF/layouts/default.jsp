@@ -12,13 +12,17 @@
     <title>Foamtec</title>
     <spring:url value="/resources/core/css/hello.css" var="coreCss" />
     <spring:url value="/resources/core/css/bootstrap.min.css" var="bootstrapCss" />
+    <spring:url value="/resources/core/css/jquery-ui.min.css" var="jqueryUiCss" />
     <link href="${bootstrapCss}" rel="stylesheet" />
+    <link href="${jqueryUiCss}" rel="stylesheet" />
     <link href="${coreCss}" rel="stylesheet" />
     <spring:url value="/resources/core/js/hello.js" var="coreJs" />
     <spring:url value="/resources/core/js/jquery.min.js" var="jqueryJs" />
     <spring:url value="/resources/core/js/bootstrap.min.js" var="bootstrapJs" />
+    <spring:url value="/resources/core/js/jquery-ui.min.js" var="jqueryUiJs" />
     <script src="${coreJs}"></script>
     <script src="${jqueryJs}"></script>
+    <script src="${jqueryUiJs}"></script>
     <script src="${bootstrapJs}"></script>
     <script>
         var session = {

@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -40,7 +41,7 @@ public class MaterialType implements Serializable {
 
     @OrderBy("createDate")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "materialType")
-    private Set<Matter> matters;
+    private Set<Matter> matters = new HashSet<Matter>();
 
     public Long getId() {
         return id;

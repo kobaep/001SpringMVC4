@@ -21,8 +21,12 @@
         <!--<intercept-url pattern="/**" access="isAuthenticated()" />-->
         <intercept-url pattern="/appuser**" access="isAuthenticated()" />
         <intercept-url pattern="/appuser/**" access="isAuthenticated()" />
-        <intercept-url pattern="/matter**" access="isAuthenticated()" />
-        <intercept-url pattern="/matter/**" access="isAuthenticated()" />
+        <intercept-url pattern="/materialTypePrivate**" access="isAuthenticated()" />
+        <intercept-url pattern="/materialTypePrivate/**" access="isAuthenticated()" />
+        <intercept-url pattern="/materialPrivate**" access="isAuthenticated()" />
+        <intercept-url pattern="/materialPrivate/**" access="isAuthenticated()" />
+        <intercept-url pattern="/materialSapPrivate**" access="isAuthenticated()" />
+        <intercept-url pattern="/materialSapPrivate/**" access="isAuthenticated()" />
     </http>
     <!-- Configure Authentication mechanism -->
     <authentication-manager alias="authenticationManager">

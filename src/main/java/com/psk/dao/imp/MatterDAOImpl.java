@@ -22,7 +22,7 @@ public class MatterDAOImpl implements MatterDAO {
 
     @Override
     public void insertMatter(Matter matter) {
-        entityManager.persist(matter);
+        entityManager.merge(matter);
     }
 
     @Override

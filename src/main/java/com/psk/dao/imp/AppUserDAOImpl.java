@@ -26,7 +26,7 @@ public class AppUserDAOImpl implements AppUserDAO {
 
     @Override
     public void insertAppUser(AppUser appUser) {
-        entityManager.persist(appUser);
+        entityManager.merge(appUser);
     }
 
     @Override

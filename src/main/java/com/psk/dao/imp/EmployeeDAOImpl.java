@@ -22,7 +22,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
     @Override
     public void insertEmployee(Employee employee) {
-        entityManager.persist(employee);
+        entityManager.merge(employee);
     }
 
     @Override

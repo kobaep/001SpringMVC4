@@ -22,7 +22,7 @@ public class MaterialCodeDAOImpl implements MaterialCodeDAO {
 
     @Override
     public void insertMaterialCode(MaterialCode matter) {
-        entityManager.persist(matter);
+        entityManager.merge(matter);
     }
 
     @Override

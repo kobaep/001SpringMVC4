@@ -8,7 +8,7 @@ $(document).ready(function() {
             inputMaterialType : $("#inputMaterialType").val()
         };
         $.ajax({
-            url: session['context'] +'/matter/create',
+            url: session["context"] +"/materialTypePrivate/createMaterialType",
             type: "POST",
             headers: {
                 Accept: "application/json"
@@ -20,7 +20,7 @@ $(document).ready(function() {
             success: function(data){
                 console.log(data.create);
                 if(data.create) {
-                    window.location.href = session['context'] + '/matterlo/listmattype';
+                    window.location.href = session["context"] + "/materialType/?list";
                 } else {
                     console.log("Can't create.");
                     return false;
