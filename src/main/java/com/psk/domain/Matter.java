@@ -36,30 +36,43 @@ public class Matter implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     private AppUser updateBy;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-    @Column(name="endDate")
-    private Date endDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
-    @Column(name="startDate")
-    private Date startDate;
-
     @Column(name="materialName")
     private String materialName;
+
+    @Column(name="manufacturing")
+    private String manufacturing;
 
     @Column(name="rohs")
     private String rohs;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="rohsDateTest")
+    private Date rohsDateTest;
+
     @Column(name="msds")
     private String msds;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="msdsDateTest")
+    private Date msdsDateTest;
 
     @Column(name="spec")
     private String spec;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="specDateTest")
+    private Date specDateTest;
+
     @Column(name="halogen")
     private String halogen;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="halogenDateTest")
+    private Date halogenDateTest;
 
     @Column(name="status")
     private String status;
@@ -122,28 +135,20 @@ public class Matter implements Serializable {
         this.updateBy = updateBy;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
     public String getMaterialName() {
         return materialName;
     }
 
     public void setMaterialName(String materialName) {
         this.materialName = materialName;
+    }
+
+    public String getManufacturing() {
+        return manufacturing;
+    }
+
+    public void setManufacturing(String manufacturing) {
+        this.manufacturing = manufacturing;
     }
 
     public String getRohs() {
@@ -154,12 +159,28 @@ public class Matter implements Serializable {
         this.rohs = rohs;
     }
 
+    public Date getRohsDateTest() {
+        return rohsDateTest;
+    }
+
+    public void setRohsDateTest(Date rohsDateTest) {
+        this.rohsDateTest = rohsDateTest;
+    }
+
     public String getMsds() {
         return msds;
     }
 
     public void setMsds(String msds) {
         this.msds = msds;
+    }
+
+    public Date getMsdsDateTest() {
+        return msdsDateTest;
+    }
+
+    public void setMsdsDateTest(Date msdsDateTest) {
+        this.msdsDateTest = msdsDateTest;
     }
 
     public String getSpec() {
@@ -170,12 +191,28 @@ public class Matter implements Serializable {
         this.spec = spec;
     }
 
+    public Date getSpecDateTest() {
+        return specDateTest;
+    }
+
+    public void setSpecDateTest(Date specDateTest) {
+        this.specDateTest = specDateTest;
+    }
+
     public String getHalogen() {
         return halogen;
     }
 
     public void setHalogen(String halogen) {
         this.halogen = halogen;
+    }
+
+    public Date getHalogenDateTest() {
+        return halogenDateTest;
+    }
+
+    public void setHalogenDateTest(Date halogenDateTest) {
+        this.halogenDateTest = halogenDateTest;
     }
 
     public String getStatus() {
@@ -224,29 +261,5 @@ public class Matter implements Serializable {
 
     public void setDocumentHistorys(Set<DocumentHistory> documentHistorys) {
         this.documentHistorys = documentHistorys;
-    }
-
-    @Override
-    public String toString() {
-        return "Matter{" +
-                "id=" + id +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", createBy=" + createBy +
-                ", updateBy=" + updateBy +
-                ", endDate=" + endDate +
-                ", startDate=" + startDate +
-                ", materialName='" + materialName + '\'' +
-                ", rohs='" + rohs + '\'' +
-                ", msds='" + msds + '\'' +
-                ", spec='" + spec + '\'' +
-                ", halogen='" + halogen + '\'' +
-                ", status='" + status + '\'' +
-                ", folw='" + folw + '\'' +
-                ", ulNumber='" + ulNumber + '\'' +
-                ", materialType=" + materialType +
-                ", materialCodes=" + materialCodes +
-                ", documentHistorys=" + documentHistorys +
-                '}';
     }
 }

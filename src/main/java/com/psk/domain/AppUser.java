@@ -126,19 +126,4 @@ public class AppUser implements Serializable {
         this.roleName = roleName;
     }
 
-    @Override
-    public String toString() {
-        return "AppUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", department='" + department + '\'' +
-                ", departmentCode='" + departmentCode + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", enabled=" + enabled +
-                ", roleName='" + roleName + '\'' +
-                '}';
-    }
 }

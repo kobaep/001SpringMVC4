@@ -1,6 +1,9 @@
 package com.psk.web;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +16,11 @@ import com.psk.manager.EmployeeManager;
 import com.psk.manager.MaterialTypeManager;
 import com.psk.manager.MatterManager;
 import com.psk.service.EmployeeService;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRCsvDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.psk.service.PskService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class PskController {
@@ -39,12 +49,33 @@ public class PskController {
     private MatterManager matterManager;
 
 	@RequestMapping(value = "/open", method = RequestMethod.GET)
-	public String openWindow(Map<String, Object> model) {
+	public String openWindow(Map<String, Object> model, HttpServletRequest request) {
+		try {
+			String path = request.getRealPath("./resources/core/report/");
+			JRCsvDataSource ds = new JRCsvDataSource(new File(path + "/Data.csv"));
+			ds.setColumnNames(new String[] {"id", "name", "salary"});
+			String fileName = path + "/report1.jasper";
+			Map map = new HashMap();
+			map.put("name", "testAAA");
+			map.put("lastName", "Eakwwww");
+			map.put("age", "test");
+			JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, map,ds);
+
+			String pathPdf = request.getRealPath("./resources/fileOutPutPDF/");
+			String pdfLink = pathPdf + "/kopeeno/output.pdf";
+			File pdf = new File(pdfLink);
+			pdf.getParentFile().mkdirs();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream(pdf));
+			String urlPdf = "kopeeno/output.pdf";
+			model.put("urlPdf", urlPdf);
+		} catch (Exception e) {
+
+		}
 		return "window";
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView index(ModelAndView model, Principal principal) {
+	public ModelAndView index(ModelAndView model, Principal principal, HttpServletRequest request) {
 		try {
 			addMenuAndName(model, principal);
 		} catch (Exception e) {
@@ -176,6 +207,66 @@ public class PskController {
 		model.setViewName("MTMS/materialData");
 		return model;
 	}
+
+	@RequestMapping(value = "/mtms/search", method = RequestMethod.GET)
+	public ModelAndView searchMat(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		model.setViewName("MTMS/search");
+		return model;
+	}
+
+	@RequestMapping(value = "/materialPrivate",params = "approve", method = RequestMethod.GET)
+	public ModelAndView materialListApprove(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+            model.addObject("materials", matterManager.findAllMatterByStatus("CREATE"));
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		model.setViewName("MTMS/materialListApprove");
+		return model;
+	}
+
+    @RequestMapping(value = "/materialPrivate/{id}",params = "approve", method = RequestMethod.GET)
+    public ModelAndView materialApprove(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+        try {
+            addMenuAndName(model, principal);
+            model.addObject("material", matterManager.findMatter(id));
+        } catch (Exception e) {
+            addLogin(model);
+        }
+        model.setViewName("MTMS/materialApprove");
+        return model;
+    }
+
+    @RequestMapping(value = "/materialPrivate",params = "listOfRequest", method = RequestMethod.GET)
+    public ModelAndView materialPrivateListOfRequest(ModelAndView model, Principal principal) {
+        try {
+            addMenuAndName(model, principal);
+            model.addObject("materialsCreate", matterManager.findAllMatterByStatus("CREATE"));
+            model.addObject("materialsReject", matterManager.findAllMatterByStatus("REJECT"));
+        } catch (Exception e) {
+            addLogin(model);
+        }
+        model.setViewName("MTMS/listOfRequest");
+        return model;
+    }
+
+    @RequestMapping(value = "/materialPrivate/{id}",params = "update", method = RequestMethod.GET)
+    public ModelAndView materialUpdate(@PathVariable("id") Long id, ModelAndView model, Principal principal) {
+        try {
+            addMenuAndName(model, principal);
+            model.addObject("material", matterManager.findMatter(id));
+        } catch (Exception e) {
+            addLogin(model);
+        }
+        model.setViewName("MTMS/materialUpdate");
+        return model;
+    }
 
 	private void addMenuAndName(ModelAndView model, Principal principal) {
 		AppUser appUser = appUserManager.findAppUserByName(principal.getName());

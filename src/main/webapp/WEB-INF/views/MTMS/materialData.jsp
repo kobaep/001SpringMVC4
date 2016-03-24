@@ -13,38 +13,46 @@
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label">Spec</label>
-                            <div class="col-sm-6">
-                                <p class="form-control-static">
-                                    <a class="btn btn-info" href="${home}resources/filePDF${material.spec}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                </p>
+                        <c:if test="${not empty material.spec}">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">Spec</label>
+                                <div class="col-sm-6">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDF${material.spec}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label">MSDS</label>
-                            <div class="col-sm-6">
-                                <p class="form-control-static">
-                                    <a class="btn btn-info" href="${home}resources/filePDF${material.msds}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                </p>
+                        </c:if>
+                        <c:if test="${not empty material.msds}">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">MSDS</label>
+                                <div class="col-sm-6">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDF${material.msds}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label">RoHs</label>
-                            <div class="col-sm-6">
-                                <p class="form-control-static">
-                                    <a class="btn btn-info" href="${home}resources/filePDF${material.rohs}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                </p>
+                        </c:if>
+                        <c:if test="${not empty material.rohs}">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">RoHs</label>
+                                <div class="col-sm-6">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDF${material.rohs}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-6 control-label">Halogen Free</label>
-                            <div class="col-sm-6">
-                                <p class="form-control-static">
-                                    <a class="btn btn-info" href="${home}resources/filePDF${material.halogen}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
-                                </p>
+                        </c:if>
+                        <c:if test="${not empty material.halogen}">
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label">Halogen Free</label>
+                                <div class="col-sm-6">
+                                    <p class="form-control-static">
+                                        <a class="btn btn-info" href="${home}resources/filePDF${material.halogen}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </c:if>
                     </form>
                 </div>
             </div>

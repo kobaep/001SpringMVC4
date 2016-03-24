@@ -13,5 +13,7 @@ public interface MatterDAO {
 
     public List<Matter> findAllMatter();
 
+    public List<Matter> findAllMatterByStatus(String status);
+
     public Matter findMatter(Long id);
 }

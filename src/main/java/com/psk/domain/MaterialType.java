@@ -99,16 +99,4 @@ public class MaterialType implements Serializable {
         this.matters = matters;
     }
 
-    @Override
-    public String toString() {
-        return "MaterialType{" +
-                "id=" + id +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                ", createBy=" + createBy +
-                ", updateBy=" + updateBy +
-                ", typeName='" + typeName + '\'' +
-                ", matters=" + matters +
-                '}';
-    }
 }

@@ -30,6 +30,11 @@ public class MatterService implements MatterManager{
     }
 
     @Override
+    public List<Matter> findAllMatterByStatus(String status) {
+        return matterDAO.findAllMatterByStatus(status);
+    }
+
+    @Override
     public Matter findMatter(Long id) {
         return matterDAO.findMatter(id);
     }

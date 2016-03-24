@@ -14,13 +14,8 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MTMS<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="${home}materialTypePrivate?form">Create Material Type</a></li>
-						<li><a href="${home}materialType/?list">Material</a></li>
-					</ul>
-				</li>
+				<li id="linkFAMS"><a href="${home}frms">FAMS <span class="sr-only">(current)</span></a></li>
+				<li id="linkMTMS"><a href="${home}materialType?list">MTMS <span class="sr-only">(current)</span></a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">

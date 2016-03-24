@@ -45,12 +45,4 @@ public class Employee implements Serializable {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }

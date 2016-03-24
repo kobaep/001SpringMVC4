@@ -29,5 +29,24 @@
         <put-attribute name="body" value="/WEB-INF/views/MTMS/materialData.jsp"/>
     </definition>
 
+    <definition extends="foamtec" name="MTMS/search">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/search.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="MTMS/materialListApprove">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/materialListApprove.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="MTMS/materialApprove">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/materialApprove.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="MTMS/listOfRequest">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/listOfRequest.jsp"/>
+    </definition>
+
+    <definition extends="foamtec" name="MTMS/materialUpdate">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/materialUpdate.jsp"/>
+    </definition>
 
 </tiles-definitions>

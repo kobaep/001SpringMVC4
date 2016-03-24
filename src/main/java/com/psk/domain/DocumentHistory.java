@@ -95,16 +95,4 @@ public class DocumentHistory implements Serializable {
         this.matter = matter;
     }
 
-    @Override
-    public String toString() {
-        return "DocumentHistory{" +
-                "id=" + id +
-                ", createDate=" + createDate +
-                ", createBy=" + createBy +
-                ", actionType='" + actionType + '\'' +
-                ", remark='" + remark + '\'' +
-                ", status='" + status + '\'' +
-                ", matter=" + matter +
-                '}';
-    }
 }

@@ -26,14 +26,26 @@
         <div class="col-sm-5">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Option Material Type</h3>
+                    <h3 class="panel-title">Option Menu</h3>
                 </div>
                 <div class="panel-body">
                     <div class="list-group">
-                        <a href="${home}materialTypePrivate?form" class="list-group-item list-group-item-info">
-                            Create Material Type
-                        </a>
-                        <a href="${home}materialTypePrivate?form" class="list-group-item list-group-item-info">
+                        <c:if test="${not empty name and roleName eq 'qa'}" >
+                            <a href="${home}materialTypePrivate?form" class="list-group-item list-group-item-info">
+                                Create Material Type
+                            </a>
+                        </c:if>
+                        <c:if test="${not empty name and roleName eq 'qa'}" >
+                            <a href="${home}materialPrivate?approve" class="list-group-item list-group-item-info">
+                                Approve
+                            </a>
+                        </c:if>
+                        <c:if test="${not empty name}" >
+                            <a href="${home}materialPrivate?listOfRequest" class="list-group-item list-group-item-info">
+                                List All Material Of Request
+                            </a>
+                        </c:if>
+                        <a href="${home}mtms/search" class="list-group-item list-group-item-info">
                             Search
                         </a>
                     </div>

@@ -31,10 +31,26 @@
                 <div class="panel-body">
                     <div class="list-group">
                         <c:forEach var="material" items="${materials}">
-                            <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-success">
-                                <span class="badge">${fn:length(material.materialCodes)}</span>
-                                    ${material.materialName}
-                            </a>
+                            <c:choose>
+                                <c:when test="${material.status eq 'CREATE'}">
+                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-warning not-active">
+                                        <span class="badge">${fn:length(material.materialCodes)}</span>
+                                            ${material.materialName}
+                                    </a>
+                                </c:when>
+                                <c:when test="${material.status eq 'REJECT'}">
+                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-danger not-active">
+                                        <span class="badge">${fn:length(material.materialCodes)}</span>
+                                            ${material.materialName}
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${home}material/${material.id}?list" class="list-group-item list-group-item-success">
+                                        <span class="badge">${fn:length(material.materialCodes)}</span>
+                                            ${material.materialName}
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                     </div>
                 </div>

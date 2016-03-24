@@ -35,6 +35,15 @@ public class MatterDAOImpl implements MatterDAO {
     }
 
     @Override
+    public List<Matter> findAllMatterByStatus(String status) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Matter> cq = builder.createQuery(Matter.class);
+        Root<Matter> root = cq.from(Matter.class);
+        cq.where(builder.equal(root.get("status"), status));
+        return entityManager.createQuery(cq).getResultList();
+    }
+
+    @Override
     public Matter findMatter(Long id) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Matter> cq = builder.createQuery(Matter.class);

@@ -86,15 +86,4 @@ public class MaterialCode implements Serializable {
         this.matter = matter;
     }
 
-    @Override
-    public String toString() {
-        return "MaterialCode{" +
-                "id=" + id +
-                ", createDate=" + createDate +
-                ", updateBy=" + updateBy +
-                ", updateDate=" + updateDate +
-                ", codeName='" + codeName + '\'' +
-                ", matter=" + matter +
-                '}';
-    }
 }

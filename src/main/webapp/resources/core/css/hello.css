@@ -79,3 +79,7 @@ body{
     background-color: #d9edf7;
     border-color: #bce8f1;
 }
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
