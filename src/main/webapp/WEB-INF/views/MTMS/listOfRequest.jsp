@@ -10,7 +10,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">Material Waiting Follow</div>
                 <div class="panel-body">
-                    <div style="height: 350px;">
+                    <div style="height: 350px;" class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                             <tr class="success">
@@ -85,7 +85,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Reject By QA</div>
                 <div class="panel-body">
-                    <div style="height: 350px;">
+                    <div style="height: 350px;" class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                             <tr class="danger">

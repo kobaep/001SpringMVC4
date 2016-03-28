@@ -16,7 +16,9 @@
             <div class="col-sm-10">
                 <select class="form-control input-lg" id="inputMaterialName">
                     <c:forEach var="material" items="${materialType.matters}">
-                        <option value="${material.id}">${material.materialName}</option>
+                        <c:if test="${material.status eq 'APPROVE'}">
+                            <option value="${material.id}">${material.materialName}</option>
+                        </c:if>
                     </c:forEach>
                 </select>
             </div>
@@ -32,7 +34,6 @@
                 <button type="submit" id="kkk" class="btn btn-default">Submit</button>
             </div>
         </div>
-        <input type="text" class="form-control hidden" id="inputId" value="${materialType.id}">
     </form>
 </div>
 <spring:url value="/resources/core/jsCustom/MTMS/addMaterialSap.js" var="create" />

@@ -2,6 +2,7 @@ package com.psk.dao;
 
 import com.psk.domain.Matter;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,4 +17,6 @@ public interface MatterDAO {
     public List<Matter> findAllMatterByStatus(String status);
 
     public Matter findMatter(Long id);
+
+    public List<Matter> findAllMaterialGe(Date date);
 }

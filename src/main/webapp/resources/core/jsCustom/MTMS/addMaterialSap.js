@@ -20,7 +20,7 @@ $("#materialSapFormId").submit(function() {
         success: function(data){
             console.log(data.create);
             if(data.create) {
-                window.location.href = session["context"] + "/material/" + $("#inputId").val() + "?list";
+                window.location.href = session["context"] + "/material/" + $("#inputMaterialName").val() + "?list";
             } else {
                 console.log("Can't create.");
                 return false;

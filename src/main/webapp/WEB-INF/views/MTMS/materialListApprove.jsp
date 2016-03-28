@@ -10,7 +10,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">Material Waiting Approve By QA</div>
                 <div class="panel-body">
-                    <div style="height: 500px;">
+                    <div style="height: 500px;" class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr class="success">

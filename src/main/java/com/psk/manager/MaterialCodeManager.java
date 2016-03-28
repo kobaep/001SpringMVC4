@@ -9,9 +9,13 @@ import java.util.List;
  */
 public interface MaterialCodeManager {
 
-    public void insertMaterialCode(MaterialCode matter);
+    public void deleteMaterialCode(MaterialCode materialCode);
+
+    public void insertMaterialCode(MaterialCode materialCode);
 
     public List<MaterialCode> findAllMaterialCode();
 
     public MaterialCode findMaterialCode(Long id);
+
+    public MaterialCode findMaterialCodeLink(String code);
 }

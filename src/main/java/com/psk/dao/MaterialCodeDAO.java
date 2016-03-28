@@ -2,6 +2,7 @@ package com.psk.dao;
 
 import com.psk.domain.MaterialCode;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,9 +10,13 @@ import java.util.List;
  */
 public interface MaterialCodeDAO {
 
-    public void insertMaterialCode(MaterialCode matter);
+    public void deleteMaterialCode(MaterialCode materialCode);
+
+    public void insertMaterialCode(MaterialCode materialCode);
 
     public List<MaterialCode> findAllMaterialCode();
 
     public MaterialCode findMaterialCode(Long id);
+
+    public MaterialCode findMaterialCodeLink(String code);
 }

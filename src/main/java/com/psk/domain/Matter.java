@@ -50,6 +50,16 @@ public class Matter implements Serializable {
     @Column(name="rohsDateTest")
     private Date rohsDateTest;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="rohsAlertDateTest")
+    private Date rohsAlertDateTest;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="rohsEndDateTest")
+    private Date rohsEndDateTest;
+
     @Column(name="msds")
     private String msds;
 
@@ -57,6 +67,16 @@ public class Matter implements Serializable {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name="msdsDateTest")
     private Date msdsDateTest;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="msdsAlertDateTest")
+    private Date msdsAlertDateTest;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="msdsEndDateTest")
+    private Date msdsEndDateTest;
 
     @Column(name="spec")
     private String spec;
@@ -66,6 +86,16 @@ public class Matter implements Serializable {
     @Column(name="specDateTest")
     private Date specDateTest;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="specAlertDateTest")
+    private Date specAlertDateTest;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="specEndDateTest")
+    private Date specEndDateTest;
+
     @Column(name="halogen")
     private String halogen;
 
@@ -73,6 +103,16 @@ public class Matter implements Serializable {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name="halogenDateTest")
     private Date halogenDateTest;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="halogenAlertDateTest")
+    private Date halogenAlertDateTest;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name="halogenEndDateTest")
+    private Date halogenEndDateTest;
 
     @Column(name="status")
     private String status;
@@ -93,7 +133,7 @@ public class Matter implements Serializable {
 
     @OrderBy("createDate")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "matter")
-    private Set<DocumentHistory> documentHistorys;
+    private Set<DocumentHistory> documentHistorys = new HashSet<DocumentHistory>();
 
     public Long getId() {
         return id;
@@ -167,6 +207,22 @@ public class Matter implements Serializable {
         this.rohsDateTest = rohsDateTest;
     }
 
+    public Date getRohsAlertDateTest() {
+        return rohsAlertDateTest;
+    }
+
+    public void setRohsAlertDateTest(Date rohsAlertDateTest) {
+        this.rohsAlertDateTest = rohsAlertDateTest;
+    }
+
+    public Date getRohsEndDateTest() {
+        return rohsEndDateTest;
+    }
+
+    public void setRohsEndDateTest(Date rohsEndDateTest) {
+        this.rohsEndDateTest = rohsEndDateTest;
+    }
+
     public String getMsds() {
         return msds;
     }
@@ -181,6 +237,22 @@ public class Matter implements Serializable {
 
     public void setMsdsDateTest(Date msdsDateTest) {
         this.msdsDateTest = msdsDateTest;
+    }
+
+    public Date getMsdsAlertDateTest() {
+        return msdsAlertDateTest;
+    }
+
+    public void setMsdsAlertDateTest(Date msdsAlertDateTest) {
+        this.msdsAlertDateTest = msdsAlertDateTest;
+    }
+
+    public Date getMsdsEndDateTest() {
+        return msdsEndDateTest;
+    }
+
+    public void setMsdsEndDateTest(Date msdsEndDateTest) {
+        this.msdsEndDateTest = msdsEndDateTest;
     }
 
     public String getSpec() {
@@ -199,6 +271,22 @@ public class Matter implements Serializable {
         this.specDateTest = specDateTest;
     }
 
+    public Date getSpecAlertDateTest() {
+        return specAlertDateTest;
+    }
+
+    public void setSpecAlertDateTest(Date specAlertDateTest) {
+        this.specAlertDateTest = specAlertDateTest;
+    }
+
+    public Date getSpecEndDateTest() {
+        return specEndDateTest;
+    }
+
+    public void setSpecEndDateTest(Date specEndDateTest) {
+        this.specEndDateTest = specEndDateTest;
+    }
+
     public String getHalogen() {
         return halogen;
     }
@@ -213,6 +301,22 @@ public class Matter implements Serializable {
 
     public void setHalogenDateTest(Date halogenDateTest) {
         this.halogenDateTest = halogenDateTest;
+    }
+
+    public Date getHalogenAlertDateTest() {
+        return halogenAlertDateTest;
+    }
+
+    public void setHalogenAlertDateTest(Date halogenAlertDateTest) {
+        this.halogenAlertDateTest = halogenAlertDateTest;
+    }
+
+    public Date getHalogenEndDateTest() {
+        return halogenEndDateTest;
+    }
+
+    public void setHalogenEndDateTest(Date halogenEndDateTest) {
+        this.halogenEndDateTest = halogenEndDateTest;
     }
 
     public String getStatus() {

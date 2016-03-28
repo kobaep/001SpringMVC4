@@ -3,9 +3,7 @@ package com.psk.web;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.psk.domain.AppUser;
 import com.psk.domain.Employee;
@@ -167,7 +165,50 @@ public class PskController {
 		}
 		List<MaterialType> materialTypes = materialTypeManager.findAllMaterialType();
 		model.addObject("materialTypes", materialTypes);
+		model.addObject("materialExpired", matterManager.findAllMaterialGe(new Date()));
+
 		model.setViewName("MTMS/materialTypeList");
+		return model;
+	}
+
+	@RequestMapping(value = "/mtms/expired",params = "list", method = RequestMethod.GET)
+	public ModelAndView materialExpired(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+
+		List<Matter> matters = matterManager.findAllMaterialGe(new Date());
+		List<Matter> mattersOut = new ArrayList<Matter>();
+		for (Matter m : matters) {
+			Calendar calcu = Calendar.getInstance();
+			calcu.setTime(new Date());
+
+			Calendar calex1 = Calendar.getInstance();
+			calex1.setTime(m.getSpecAlertDateTest());
+			if(calcu.compareTo(calex1) > 0) {
+				m.setSpec(null);
+			}
+			Calendar calex2 = Calendar.getInstance();
+			calex2.setTime(m.getMsdsAlertDateTest());
+			if(calcu.compareTo(calex2) > 0) {
+				m.setMsds(null);
+			}
+			Calendar calex3 = Calendar.getInstance();
+			calex3.setTime(m.getRohsAlertDateTest());
+			if(calcu.compareTo(calex3) > 0) {
+				m.setRohs(null);
+			}
+			Calendar calex4 = Calendar.getInstance();
+			calex4.setTime(m.getHalogenAlertDateTest());
+			if(calcu.compareTo(calex4) > 0) {
+				m.setHalogen(null);
+			}
+			mattersOut.add(m);
+		}
+		model.addObject("materialExpired", mattersOut);
+		model.setViewName("MTMS/expiredList");
 		return model;
 	}
 

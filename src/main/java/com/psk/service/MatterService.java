@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,5 +38,10 @@ public class MatterService implements MatterManager{
     @Override
     public Matter findMatter(Long id) {
         return matterDAO.findMatter(id);
+    }
+
+    @Override
+    public List<Matter> findAllMaterialGe(Date date) {
+        return matterDAO.findAllMaterialGe(date);
     }
 }

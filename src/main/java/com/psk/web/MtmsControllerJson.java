@@ -2,12 +2,14 @@ package com.psk.web;
 
 import com.psk.domain.*;
 import com.psk.manager.AppUserManager;
+import com.psk.manager.MaterialCodeManager;
 import com.psk.manager.MaterialTypeManager;
 import com.psk.manager.MatterManager;
 import com.psk.service.MaterialTypeService;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +34,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by apichat on 3/11/2016 AD.
@@ -52,6 +52,9 @@ public class MtmsControllerJson {
 
     @Autowired
     private AppUserManager appUserManager;
+
+    @Autowired
+    private MaterialCodeManager materialCodeManager;
 
     @RequestMapping(value = "/materialTypePrivate/createMaterialType", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
@@ -192,10 +195,30 @@ public class MtmsControllerJson {
         }
     }
 
+    @RequestMapping(value = "/material/search", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> search(@RequestParam("data") String data, Principal principal) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+
+            JSONObject jsonObject = new JSONObject(data);
+            MaterialCode materialCode = materialCodeManager.findMaterialCodeLink(jsonObject.getString("inputSearch"));
+            JSONObject jsonObjectDataOutPut = new JSONObject();
+            jsonObjectDataOutPut.put("materialType", materialCode.getMatter().getMaterialType().getTypeName());
+            jsonObjectDataOutPut.put("materialName", materialCode.getMatter().getMaterialName());
+            jsonObjectDataOutPut.put("id", materialCode.getMatter().getId());
+            return new ResponseEntity<String>(jsonObjectDataOutPut.toString(), headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"create\":false}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     private void uploadFile(MultipartFile spec, MultipartFile rohs, MultipartFile msds, MultipartFile halogen,
                             String dateSpec, String dateMsds, String dateRohs, String dateHalogen,
                             MaterialType materialType, HttpServletRequest request, Matter matter) throws IOException{
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
 
         String path = request.getRealPath("./resources/filePDF/");
         try {
@@ -204,7 +227,14 @@ public class MtmsControllerJson {
                 File convFile = new File(path + url);
                 convFile.getParentFile().mkdirs();
                 matter.setSpec(url);
-                matter.setSpecDateTest(df.parse(dateSpec));
+
+                Date date = df.parse(dateSpec);
+                matter.setSpecDateTest(date);
+                cal.setTime(date);
+                cal.add(Calendar.YEAR, 1);
+                matter.setSpecEndDateTest(cal.getTime());
+                cal.add(Calendar.MONTH, -3);
+                matter.setSpecAlertDateTest(cal.getTime());
 
                 FileOutputStream fos = new FileOutputStream(convFile);
                 fos.write(spec.getBytes());
@@ -215,7 +245,14 @@ public class MtmsControllerJson {
                 File convFile = new File(path + url);
                 convFile.getParentFile().mkdirs();
                 matter.setRohs(url);
-                matter.setRohsDateTest(df.parse(dateRohs));
+
+                Date date = df.parse(dateRohs);
+                matter.setRohsDateTest(date);
+                cal.setTime(date);
+                cal.add(Calendar.YEAR, 1);
+                matter.setRohsEndDateTest(cal.getTime());
+                cal.add(Calendar.MONTH, -3);
+                matter.setRohsAlertDateTest(cal.getTime());
 
                 FileOutputStream fos = new FileOutputStream(convFile);
                 fos.write(rohs.getBytes());
@@ -226,7 +263,14 @@ public class MtmsControllerJson {
                 File convFile = new File(path + url);
                 convFile.getParentFile().mkdirs();
                 matter.setMsds(url);
-                matter.setMsdsDateTest(df.parse(dateMsds));
+
+                Date date = df.parse(dateMsds);
+                matter.setMsdsDateTest(date);
+                cal.setTime(date);
+                cal.add(Calendar.YEAR, 1);
+                matter.setMsdsEndDateTest(cal.getTime());
+                cal.add(Calendar.MONTH, -3);
+                matter.setMsdsAlertDateTest(cal.getTime());
 
                 FileOutputStream fos = new FileOutputStream(convFile);
                 fos.write(msds.getBytes());
@@ -237,7 +281,14 @@ public class MtmsControllerJson {
                 File convFile = new File(path + url);
                 convFile.getParentFile().mkdirs();
                 matter.setHalogen(url);
-                matter.setHalogenDateTest(df.parse(dateHalogen));
+
+                Date date = df.parse(dateHalogen);
+                matter.setHalogenDateTest(date);
+                cal.setTime(date);
+                cal.add(Calendar.YEAR, 1);
+                matter.setHalogenEndDateTest(cal.getTime());
+                cal.add(Calendar.MONTH, -3);
+                matter.setHalogenAlertDateTest(cal.getTime());
 
                 FileOutputStream fos = new FileOutputStream(convFile);
                 fos.write(halogen.getBytes());

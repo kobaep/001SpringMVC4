@@ -49,4 +49,8 @@
         <put-attribute name="body" value="/WEB-INF/views/MTMS/materialUpdate.jsp"/>
     </definition>
 
+    <definition extends="foamtec" name="MTMS/expiredList">
+        <put-attribute name="body" value="/WEB-INF/views/MTMS/expiredList.jsp"/>
+    </definition>
+
 </tiles-definitions>

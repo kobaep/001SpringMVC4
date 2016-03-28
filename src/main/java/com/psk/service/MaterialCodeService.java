@@ -20,8 +20,14 @@ public class MaterialCodeService implements MaterialCodeManager {
 
     @Override
     @Transactional
-    public void insertMaterialCode(MaterialCode matter) {
-        materialCodeDAO.insertMaterialCode(matter);
+    public void deleteMaterialCode(MaterialCode materialCode) {
+        materialCodeDAO.deleteMaterialCode(materialCode);
+    }
+
+    @Override
+    @Transactional
+    public void insertMaterialCode(MaterialCode materialCode) {
+        materialCodeDAO.insertMaterialCode(materialCode);
     }
 
     @Override
@@ -32,5 +38,10 @@ public class MaterialCodeService implements MaterialCodeManager {
     @Override
     public MaterialCode findMaterialCode(Long id) {
         return materialCodeDAO.findMaterialCode(id);
+    }
+
+    @Override
+    public MaterialCode findMaterialCodeLink(String code) {
+        return materialCodeDAO.findMaterialCodeLink(code);
     }
 }
