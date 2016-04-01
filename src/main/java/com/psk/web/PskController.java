@@ -14,9 +14,7 @@ import com.psk.manager.EmployeeManager;
 import com.psk.manager.MaterialTypeManager;
 import com.psk.manager.MatterManager;
 import com.psk.service.EmployeeService;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRCsvDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import org.slf4j.Logger;
@@ -49,14 +47,25 @@ public class PskController {
 	@RequestMapping(value = "/open", method = RequestMethod.GET)
 	public String openWindow(Map<String, Object> model, HttpServletRequest request) {
 		try {
+
+		} catch (Exception e) {
+
+		}
+		return "window";
+	}
+
+	@RequestMapping(value = "/test/{name}/{lastName}", produces = "text/html")
+	public ModelAndView openWindow(@PathVariable("name") String name, @PathVariable("lastName") String lastName, ModelAndView model, Principal principal, HttpServletRequest request) {
+		try {
 			String path = request.getRealPath("./resources/core/report/");
 			JRCsvDataSource ds = new JRCsvDataSource(new File(path + "/Data.csv"));
 			ds.setColumnNames(new String[] {"id", "name", "salary"});
-			String fileName = path + "/report1.jasper";
+			String fileName = path + "/demo.jasper";
 			Map map = new HashMap();
-			map.put("name", "testAAA");
-			map.put("lastName", "Eakwwww");
-			map.put("age", "test");
+			map.put("name", name);
+			map.put("lastName", lastName);
+//			JasperReport ir = JasperCompileManager.compileReport(fileName);
+//			JasperPrint jasperPrint = JasperFillManager.fillReport(ir, map,ds);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, map,ds);
 
 			String pathPdf = request.getRealPath("./resources/fileOutPutPDF/");
@@ -65,11 +74,12 @@ public class PskController {
 			pdf.getParentFile().mkdirs();
 			JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream(pdf));
 			String urlPdf = "kopeeno/output.pdf";
-			model.put("urlPdf", urlPdf);
+			model.addObject("urlPdf", urlPdf);
 		} catch (Exception e) {
-
+			addLogin(model);
 		}
-		return "window";
+		model.setViewName("window");
+		return model;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -164,9 +174,17 @@ public class PskController {
 			addLogin(model);
 		}
 		List<MaterialType> materialTypes = materialTypeManager.findAllMaterialType();
+		for (MaterialType mt : materialTypes) {
+			for (Matter m : mt.getMatters()) {
+				if (m.getStatus().equals("REMOVE")) {
+					mt.getMatters().remove(m);
+				}
+			}
+		}
 		model.addObject("materialTypes", materialTypes);
 		model.addObject("materialExpired", matterManager.findAllMaterialGe(new Date()));
-
+		model.addObject("materials", matterManager.findAllMatterByStatusAndStatus("CREATE", "UPDATE"));
+		model.addObject("materialsDoc", matterManager.findAllMatterByStatus("REQUESTDOC"));
 		model.setViewName("MTMS/materialTypeList");
 		return model;
 	}
@@ -185,16 +203,6 @@ public class PskController {
 			Calendar calcu = Calendar.getInstance();
 			calcu.setTime(new Date());
 
-			Calendar calex1 = Calendar.getInstance();
-			calex1.setTime(m.getSpecAlertDateTest());
-			if(calcu.compareTo(calex1) > 0) {
-				m.setSpec(null);
-			}
-			Calendar calex2 = Calendar.getInstance();
-			calex2.setTime(m.getMsdsAlertDateTest());
-			if(calcu.compareTo(calex2) > 0) {
-				m.setMsds(null);
-			}
 			Calendar calex3 = Calendar.getInstance();
 			calex3.setTime(m.getRohsAlertDateTest());
 			if(calcu.compareTo(calex3) > 0) {
@@ -249,6 +257,18 @@ public class PskController {
 		return model;
 	}
 
+	@RequestMapping(value = "/material/request",params = "list", method = RequestMethod.GET)
+	public ModelAndView materiaRequestlList(ModelAndView model, Principal principal) {
+		try {
+			addMenuAndName(model, principal);
+		} catch (Exception e) {
+			addLogin(model);
+		}
+		model.addObject("materialsDoc", matterManager.findAllMatterByStatus("REQUESTDOC"));
+		model.setViewName("MTMS/materialRequestList");
+		return model;
+	}
+
 	@RequestMapping(value = "/mtms/search", method = RequestMethod.GET)
 	public ModelAndView searchMat(ModelAndView model, Principal principal) {
 		try {
@@ -264,7 +284,7 @@ public class PskController {
 	public ModelAndView materialListApprove(ModelAndView model, Principal principal) {
 		try {
 			addMenuAndName(model, principal);
-            model.addObject("materials", matterManager.findAllMatterByStatus("CREATE"));
+            model.addObject("materials", matterManager.findAllMatterByStatusAndStatus("CREATE", "UPDATE"));
 		} catch (Exception e) {
 			addLogin(model);
 		}

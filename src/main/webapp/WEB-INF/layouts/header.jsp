@@ -32,7 +32,7 @@
 						<c:if test="${not empty login}">
 							<li id="login"><a href="${home}login">Login</a></li>
 						</c:if>
-						<c:if test="${not empty createUser}">
+						<c:if test="${roleName eq 'admin'}">
 							<li id="create"><a href="${home}appuser?form">Create User</a></li>
 						</c:if>
 						<c:if test="${not empty logout}">

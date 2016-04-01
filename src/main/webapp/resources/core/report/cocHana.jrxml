@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cocHana" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec442cae-e9c5-4168-84c8-f580d1884a2e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="259"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="3f009345-e747-454e-8c4e-1a55b3ebb3d9"/>
+	<subDataset name="Table Dataset 2" uuid="3cd60216-b10f-433e-9632-60a295fc817b"/>
+	<parameter name="lotNumber" class="java.lang.String"/>
+	<parameter name="orderNumber" class="java.lang.String"/>
+	<parameter name="qty" class="java.lang.String"/>
+	<parameter name="partNumber" class="java.lang.String"/>
+	<parameter name="revision" class="java.lang.String"/>
+	<parameter name="issueName" class="java.lang.String"/>
+	<parameter name="remark" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="1" width="113" height="36" uuid="f4e92264-eaa0-428a-9a87-00477f7d52ba"/>
+				<imageExpression><![CDATA["/Users/apichat/Workspace/java-projects/001SpringMVC4/src/main/webapp/resources/core/image/foamtecLogo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="16" uuid="76abb0c9-f60e-458c-bdd7-cb3434a55bda"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOAMTEC INTERNATIONAL CO.,LTD ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="124" y="27" width="402" height="1" uuid="145def4a-15fc-4745-adf8-da0ccd60e374"/>
+			</line>
+			<staticText>
+				<reportElement x="124" y="14" width="100" height="14" uuid="aa0563a2-1fed-45af-a161-1dcb020b5955"/>
+				<text><![CDATA[Fabrication Division]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="28" width="353" height="13" uuid="32d4f0b9-8520-409a-8c99-ea208283763a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[700/50,52,54 Moo 6, Amata-Nakorn Industrial, T.Nongmaidang, A.Muangchonburi, Chonburi 20000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="39" width="146" height="12" uuid="034a38be-6689-4c73-acb7-da9f9c9e0ca2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tel : 083-465800 Auto Fax :038-465801]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="697" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="13" width="555" height="33" uuid="28d10f7b-fe36-48d2-a31d-cd7043466775"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Certificate Of Conformance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="79" width="291" height="44" uuid="4f5943b3-979a-453a-a879-d3d11427c676"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[ 101/2 Moo 4, Northern Region Industrial Estate, Baan Klang, Muang District, Lamphun 51000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="59" width="291" height="20" uuid="a1de4c77-9406-4a08-8305-cbdeb274ac20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[To : HANA Microelectronics Public Co.,Ltd.(Lamphun)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="150" width="33" height="20" uuid="b4baddf9-4944-4ab8-a6bb-8b20257dd6d2"/>
+				<text><![CDATA[Date : ]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="455" y="150" width="100" height="20" uuid="0540be46-9757-4d2a-a084-29a14d2007d1"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="455" y="169" width="71" height="1" uuid="96876f8d-f02d-4bc4-91c5-2b761679b3d3"/>
+			</line>
+			<staticText>
+				<reportElement x="25" y="212" width="501" height="20" uuid="60979531-2db4-4139-b6d1-08022a2e2c51"/>
+				<text><![CDATA[THIS IS TO CERTIFY THAT MATERIAL FURNISHED ON THE SAMPLES AND/OR PRODUCTS FOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="232" width="122" height="20" uuid="a38a15f6-51db-4f7c-bac1-96d6211a6713"/>
+				<text><![CDATA[PRODUCTION LOT No. :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="232" width="137" height="20" uuid="61a9ebe8-ff64-4228-93c1-c6c658da2a6c"/>
+				<text><![CDATA[OF PURCHASE ORDER #]]></text>
+			</staticText>
+			<line>
+				<reportElement x="147" y="251" width="100" height="1" uuid="d8b4c0ec-71a6-40e5-9ff1-a7c2f92e5da2"/>
+			</line>
+			<line>
+				<reportElement x="391" y="250" width="100" height="1" uuid="7a70c040-c0b3-4d3a-bf6e-4eb70e0428f6"/>
+			</line>
+			<textField>
+				<reportElement x="154" y="232" width="100" height="20" uuid="2abcbf60-dbd8-4b60-bd96-c32b79f0cdd1"/>
+				<textFieldExpression><![CDATA[$P{lotNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="232" width="100" height="20" uuid="fb337fa6-cd0c-4aa8-9f64-c9d58d925906"/>
+				<textFieldExpression><![CDATA[$P{orderNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="252" width="33" height="20" uuid="f5dff6cf-6021-4848-a3b2-dbcd1e917609"/>
+				<text><![CDATA[QTY.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="58" y="272" width="100" height="1" uuid="424fe228-3dff-4353-bc62-3a2b0b22155c"/>
+			</line>
+			<staticText>
+				<reportElement x="170" y="253" width="100" height="20" uuid="53d7a257-8130-4619-8d2e-d7ea941e4a60"/>
+				<text><![CDATA[Pcs.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="253" width="100" height="20" uuid="a4c495f9-4b87-4057-98af-9f95c76b79db"/>
+				<textFieldExpression><![CDATA[$P{qty}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="25" y="311" width="63" height="19" uuid="a11f16fc-d6a7-4079-a432-48900c76b0b7"/>
+				<text><![CDATA[PART NO. :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="88" y="329" width="100" height="1" uuid="ec171b18-55bf-4d00-a9a5-360d0789dc56"/>
+			</line>
+			<staticText>
+				<reportElement x="191" y="309" width="100" height="21" uuid="d214667f-3cf1-4114-aa63-6bf8971be88c"/>
+				<text><![CDATA[Revision. :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="291" y="329" width="100" height="1" uuid="757511ab-8ce8-44b4-9725-2c5fc20eff94"/>
+			</line>
+			<textField>
+				<reportElement x="88" y="309" width="100" height="20" uuid="40a421ef-9de8-451c-af39-185c50c71126"/>
+				<textFieldExpression><![CDATA[$P{partNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="291" y="309" width="100" height="20" uuid="e360874f-7484-43cd-8a54-34b1385adcc0"/>
+				<textFieldExpression><![CDATA[$P{revision}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table" style="table" x="58" y="366" width="443" height="140" uuid="a3a63f1e-e23a-4a52-b3ff-51cb6bdd3929"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 2" uuid="d3917417-f953-4e44-a290-4f42d1f21175">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="208" uuid="2bbbca39-eb21-45eb-a96b-9128d7247c20">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="208" height="30" uuid="1fc2825b-3aec-416f-9c22-221c50d3867f"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[PART NAME]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1"/>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+					<jr:column width="233" uuid="22634e0b-1163-4342-87ee-bb8e260ccf7f">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="233" height="30" uuid="0c416e7e-9505-4744-8a17-e3cafddee290"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[ADHESIVE]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1"/>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="58" y="506" width="76" height="20" uuid="aeb73dc7-917d-4850-9858-1b5b31b04bd5"/>
+				<text><![CDATA[REMARKS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="526" width="76" height="20" uuid="17ae3c1a-bcae-4dfd-abcf-82654026ff8a"/>
+				<text><![CDATA[ISSUE NAME : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="134" y="526" width="100" height="20" uuid="04cb32eb-e0ba-422d-b18a-6ecde580a33f"/>
+				<textFieldExpression><![CDATA[$P{issueName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="506" width="100" height="20" uuid="99c40002-e22a-40e6-bdb8-361d19a912ec"/>
+				<textFieldExpression><![CDATA[$P{remark}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="58" y="583" width="133" height="20" uuid="bf74afae-4a9d-43d1-b45c-0b81b380fdbf"/>
+				<text><![CDATA[AUTHORIZED SINGATURE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="583" width="171" height="20" uuid="8a5ad616-eeb8-4f40-af41-ce85f973d632"/>
+				<text><![CDATA[COMPANY'S STAMP (ORIGINAL)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="662" width="130" height="20" uuid="985a1b99-f0b1-4c22-b62a-770eb0e4be30"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Quality Assurance Department]]></text>
+			</staticText>
+			<line>
+				<reportElement x="47" y="651" width="160" height="1" uuid="adace283-4b4e-4f65-9c21-649b111de8e0"/>
+			</line>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

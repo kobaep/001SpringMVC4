@@ -1,8 +1,7 @@
 /**
- * Created by apichat on 3/11/2016 AD.
+ * Created by apichat on 3/30/2016 AD.
  */
 $(document).ready(function() {
-
     $("#inputDateRoHs").datepicker({ dateFormat: "dd/mm/yy" });
 
     $("#inputDateHF").datepicker({ dateFormat: "dd/mm/yy" });
@@ -31,7 +30,6 @@ $(document).ready(function() {
         }
         formData.append("inputManufacturing", $("#inputManufacturing").val());
         formData.append("inputMaterialName", $("#inputMaterialName").val());
-        formData.append("inputStartDate", $("#inputStartDate").val());
         formData.append("inputUlNumber", $("#inputUlNumber").val());
         formData.append("id", $("#inputId").val());
 
@@ -42,7 +40,7 @@ $(document).ready(function() {
             },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            url: session['context'] +"/materialPrivate/create",
+            url: session['context'] +"/materialPrivate/updateAll",
             processData: false,
             contentType: false,
             data: formData,
@@ -58,6 +56,38 @@ $(document).ready(function() {
             error: function(data){
                 alert("saved error.");
                 return false;
+            }
+        });
+        return false;
+    });
+
+    $("#btnCancle").click(function() {
+        var data = {
+            inputId : $("#inputId").val(),
+            action : "REMOVE",
+            reason : "REMOVE"
+        };
+        $.ajax({
+            url: session["context"] +"/materialPrivate/remove",
+            type: "POST",
+            headers: {
+                Accept: "application/json"
+            },
+            data: {
+                data : JSON.stringify(data)
+            },
+            dataType: "json",
+            success: function(data){
+                console.log(data.create);
+                if(data.create) {
+                    window.location.href = session["context"] + "/materialType?list";
+                } else {
+                    console.log("Can't create.");
+                    return false;
+                }
+            },
+            error: function(data){
+                alert("saved error.");
             }
         });
         return false;

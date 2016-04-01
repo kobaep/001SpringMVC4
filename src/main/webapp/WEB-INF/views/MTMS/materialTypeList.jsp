@@ -37,6 +37,7 @@
                         </c:if>
                         <c:if test="${not empty name and roleName eq 'qa'}" >
                             <a href="${home}materialPrivate?approve" class="list-group-item list-group-item-info">
+                                <span class="badge">${fn:length(materials)}</span>
                                 Approve
                             </a>
                         </c:if>
@@ -47,6 +48,10 @@
                         </c:if>
                         <a href="${home}mtms/search" class="list-group-item list-group-item-info">
                             Search
+                        </a>
+                        <a href="${home}material/request?list" class="list-group-item list-group-item-info">
+                            <span class="badge">${fn:length(materialsDoc)}</span>
+                            Request Document
                         </a>
                         <a href="${home}mtms/expired?list" class="list-group-item list-group-item-info">
                             <span class="badge">${fn:length(materialExpired)}</span>

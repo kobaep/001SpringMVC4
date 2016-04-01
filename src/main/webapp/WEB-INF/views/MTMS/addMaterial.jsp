@@ -31,8 +31,7 @@
         <div class="form-group">
             <label for="inputSpec" class="col-sm-2 control-label">Spec</label>
             <div class="col-sm-10 form-inline">
-                <span class="btn btn-file"><input type="file" id="inputSpec"></span>
-                <input type="text" class="form-control input-lg" id="inputDateSpec" placeholder="Start Test Date" autocomplete="off">
+                <span class="btn btn-file"><input type="file" id="inputSpec" required></span>
             </div>
         </div>
         <div class="form-group">
@@ -45,15 +44,14 @@
         <div class="form-group">
             <label for="inputMSDS" class="col-sm-2 control-label">MSDS</label>
             <div class="col-sm-10 form-inline">
-                <span class="btn btn-file"><input type="file" id="inputMSDS"></span>
-                <input type="text" class="form-control input-lg" id="inputDateMSDS" placeholder="Start Test Date" autocomplete="off">
+                <span class="btn btn-file"><input type="file" id="inputMSDS" required></span>
             </div>
         </div>
         <div class="form-group">
             <label for="inputHalogen" class="col-sm-2 control-label">Halogen Free</label>
             <div class="col-sm-10 form-inline">
-                <span class="btn btn-file"><input type="file" id="inputHalogen" required></span>
-                <input type="text" class="form-control input-lg" id="inputDateHF" placeholder="Start Test Date" autocomplete="off" required>
+                <span class="btn btn-file"><input type="file" id="inputHalogen"></span>
+                <input type="text" class="form-control input-lg" id="inputDateHF" placeholder="Start Test Date" autocomplete="off">
             </div>
         </div>
         <div class="form-group">

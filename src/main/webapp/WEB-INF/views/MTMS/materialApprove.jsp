@@ -37,8 +37,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Spec :</label>
                     <div class="col-sm-10 form-inline">
-                        <a href="${home}resources/filePDF${material.spec}" target="_blank" role="button"><p class="form-control-static">Spec PDF File</p></a> &nbsp; &nbsp; &nbsp;
-                        <p class="form-control-static">Test Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.specDateTest}" /></p>
+                        <a href="${home}resources/filePDF${material.spec}" target="_blank" role="button"><p class="form-control-static">Spec PDF File</p></a>
                     </div>
                 </div>
             </c:if>
@@ -55,9 +54,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">MSDS :</label>
                     <div class="col-sm-10 form-inline">
-                        <a href="${home}resources/filePDF${material.msds}" target="_blank" role="button"><p class="form-control-static">MSDS PDF File</p></a> &nbsp; &nbsp; &nbsp;
-                        <p class="form-control-static">Test Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.msdsDateTest}" /></p>
-                    </div>
+                        <a href="${home}resources/filePDF${material.msds}" target="_blank" role="button"><p class="form-control-static">MSDS PDF File</p></a>
                 </div>
             </c:if>
             <c:if test="${not empty material.halogen}">
@@ -77,6 +74,22 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+<div class="modal fade" id="alertRejectModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title">Reject Reason</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" rows="3" id="inputReason"><jsp:text/></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnRejectReason">reject</button>
+            </div>
+        </div>
     </div>
 </div>
 <spring:url value="/resources/core/jsCustom/MTMS/materialApprove.js" var="create" />

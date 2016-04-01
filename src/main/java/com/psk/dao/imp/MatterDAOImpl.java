@@ -1,6 +1,7 @@
 package com.psk.dao.imp;
 
 import com.psk.dao.MatterDAO;
+import com.psk.domain.MaterialType;
 import com.psk.domain.Matter;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -65,9 +66,21 @@ public class MatterDAOImpl implements MatterDAO {
         cq.where(
                 builder.or(
                         builder.lessThanOrEqualTo(root.<Date>get("rohsAlertDateTest"), date),
-                        builder.lessThanOrEqualTo(root.<Date>get("msdsAlertDateTest"), date),
-                        builder.lessThanOrEqualTo(root.<Date>get("specAlertDateTest"), date),
-                        builder.lessThanOrEqualTo(root.<Date>get("specAlertDateTest"), date)
+                        builder.lessThanOrEqualTo(root.<Date>get("halogenAlertDateTest"), date)
+                )
+        );
+        return entityManager.createQuery(cq).getResultList();
+    }
+
+    @Override
+    public List<Matter> findAllMatterByStatusAndStatus(String status1, String status2) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Matter> cq = builder.createQuery(Matter.class);
+        Root<Matter> root = cq.from(Matter.class);
+        cq.where(
+                builder.or(
+                        builder.equal(root.get("status"), status1),
+                        builder.equal(root.get("status"), status2)
                 )
         );
         return entityManager.createQuery(cq).getResultList();

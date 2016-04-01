@@ -6,7 +6,8 @@ $(document).ready(function() {
     $("#btnApprove").click(function() {
         var data = {
             inputId : $("#inputId").val(),
-            action : "APPROVE"
+            action : "APPROVE",
+            reason : ""
         };
         $.ajax({
             url: session["context"] +"/materialPrivate/update",
@@ -35,9 +36,14 @@ $(document).ready(function() {
     });
 
     $("#btnReject").click(function() {
+        $("#alertRejectModal").modal({show:true});
+    });
+
+    $("#btnRejectReason").click(function() {
         var data = {
             inputId : $("#inputId").val(),
-            action : "REJECT"
+            action : "REJECT",
+            reason : $("#inputReason").val()
         };
         $.ajax({
             url: session["context"] +"/materialPrivate/update",

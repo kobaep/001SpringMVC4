@@ -44,7 +44,6 @@
                                 <p class="form-control-static">
                                     <a class="btn btn-info" href="${home}resources/filePDF${material.spec}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 </p>
-                                <p class="form-control-static">Expired Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.specEndDateTest}" /></p>
                             </div>
                         </div>
                     </c:if>
@@ -55,7 +54,6 @@
                                 <p class="form-control-static">
                                     <a class="btn btn-info" href="${home}resources/filePDF${material.msds}" target="_blank" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
                                 </p>
-                                <p class="form-control-static">Expired Date <fmt:formatDate pattern="dd/MM/yyyy"  value="${material.msdsEndDateTest}" /></p>
                             </div>
                         </div>
                     </c:if>
@@ -85,6 +83,22 @@
             </form>
         </div>
     </div>
+    <c:if test="${roleName eq 'qa'}">
+        <div class="row">
+            <form class="form-horizontal">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <div class="form-group">
+                        <input id="inputId" class="hidden" value="${material.id}">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" id="btnSubmit" class="btn btn-warning">Submit Request</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </c:if>
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-danger">
@@ -94,14 +108,7 @@
                 <div class="panel-body">
                     <ul class="list-group">
                         <c:forEach var="materialCode" items="${material.materialCodes}">
-                            <c:choose>
-                                <c:when test="${not empty name}">
-                                    <li class="list-group-item">${materialCode.codeName}</li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="list-group-item">${materialCode.codeName}</li>
-                                </c:otherwise>
-                            </c:choose>
+                            <li class="list-group-item">${materialCode.codeName}</li>
                         </c:forEach>
                     </ul>
                 </div>
@@ -109,3 +116,21 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="alertRejectModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <h4 class="modal-title">Reason</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" rows="3" id="inputReason"><jsp:text/></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="btnRejectReason">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<spring:url value="/resources/core/jsCustom/MTMS/materialData.js" var="create" />
+<script src="${create}"></script>

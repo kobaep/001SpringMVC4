@@ -6,6 +6,10 @@ import com.psk.manager.MaterialCodeManager;
 import com.psk.manager.MaterialTypeManager;
 import com.psk.manager.MatterManager;
 import com.psk.service.MaterialTypeService;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRCsvDataSource;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -92,9 +96,7 @@ public class MtmsControllerJson {
             MultipartFile msds = multipartHttpServletRequest.getFile("inputMSDS");
             MultipartFile halogen = multipartHttpServletRequest.getFile("inputHalogen");
 
-            String dateSpec = multipartHttpServletRequest.getParameter("inputDateSpec");
             String dateRohs = multipartHttpServletRequest.getParameter("inputDateRoHs");
-            String dateMsds = multipartHttpServletRequest.getParameter("inputDateMSDS");
             String dateHalogen = multipartHttpServletRequest.getParameter("inputDateHF");
 
             Set<Matter> matters = new HashSet<Matter>();
@@ -104,7 +106,7 @@ public class MtmsControllerJson {
             matter.setUlNumber(multipartHttpServletRequest.getParameter("inputUlNumber"));
             matter.setManufacturing(multipartHttpServletRequest.getParameter("inputManufacturing"));
 
-            uploadFile(spec, rohs, msds, halogen, dateSpec, dateRohs, dateMsds, dateHalogen, materialType, request, matter);
+            uploadFile(spec, rohs, msds, halogen, dateRohs, dateHalogen, materialType, request, matter);
 
             matter.setCreateBy(appUser);
             matter.setCreateDate(new Date());
@@ -149,12 +151,13 @@ public class MtmsControllerJson {
             Matter matter = matterManager.findMatter(jsonObject.getLong("inputId"));
             matter.setUpdateBy(appUser);
             matter.setStatus(jsonObject.getString("action"));
-
+            matter.setReason(jsonObject.getString("reason"));
             Set<DocumentHistory> documentHistories = matter.getDocumentHistorys();
             DocumentHistory documentHistory = new DocumentHistory();
             documentHistory.setStatus(jsonObject.getString("action"));
             documentHistory.setCreateBy(appUser);
             documentHistory.setCreateDate(new Date());
+            documentHistory.setRemark(jsonObject.getString("reason"));
             documentHistory.setActionType(jsonObject.getString("action"));
             documentHistory.setMatter(matter);
             documentHistories.add(documentHistory);
@@ -163,6 +166,86 @@ public class MtmsControllerJson {
 
             matterManager.insertMatter(matter);
 
+            return new ResponseEntity<String>("{\"create\":true}", headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"create\":false}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/materialPrivate/remove", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> removeMatter(@RequestParam("data") String data, Principal principal) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            AppUser appUser = appUserManager.findAppUserByName(principal.getName());
+            JSONObject jsonObject = new JSONObject(data);
+
+            Matter matter = matterManager.findMatter(jsonObject.getLong("inputId"));
+            matter.setUpdateBy(appUser);
+            matter.setStatus(jsonObject.getString("action"));
+            matter.setReason(jsonObject.getString("reason"));
+            Set<DocumentHistory> documentHistories = matter.getDocumentHistorys();
+            DocumentHistory documentHistory = new DocumentHistory();
+            documentHistory.setStatus(jsonObject.getString("action"));
+            documentHistory.setCreateBy(appUser);
+            documentHistory.setCreateDate(new Date());
+            documentHistory.setRemark(jsonObject.getString("reason"));
+            documentHistory.setActionType(jsonObject.getString("action"));
+            documentHistory.setMatter(matter);
+            documentHistories.add(documentHistory);
+
+            matter.setDocumentHistorys(documentHistories);
+
+            matterManager.insertMatter(matter);
+            return new ResponseEntity<String>("{\"create\":true}", headers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("{\"create\":false}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/materialPrivate/updateAll", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> updateAllMatter(HttpServletRequest request,MultipartHttpServletRequest multipartHttpServletRequest, Principal principal) throws IOException{
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            AppUser appUser = appUserManager.findAppUserByName(principal.getName());
+
+            Matter matter = matterManager.findMatter(Long.parseLong(multipartHttpServletRequest.getParameter("id")));
+
+            MultipartFile spec = multipartHttpServletRequest.getFile("inputSpec");
+            MultipartFile rohs = multipartHttpServletRequest.getFile("inputRoHs");
+            MultipartFile msds = multipartHttpServletRequest.getFile("inputMSDS");
+            MultipartFile halogen = multipartHttpServletRequest.getFile("inputHalogen");
+
+            String dateRohs = multipartHttpServletRequest.getParameter("inputDateRoHs");
+            String dateHalogen = multipartHttpServletRequest.getParameter("inputDateHF");
+
+            matter.setMaterialName(multipartHttpServletRequest.getParameter("inputMaterialName"));
+            matter.setUlNumber(multipartHttpServletRequest.getParameter("inputUlNumber"));
+            matter.setManufacturing(multipartHttpServletRequest.getParameter("inputManufacturing"));
+
+            uploadFile(spec, rohs, msds, halogen, dateRohs, dateHalogen, matter.getMaterialType(), request, matter);
+
+            matter.setUpdateBy(appUser);
+            matter.setUpdateDate(new Date());
+            matter.setStatus("UPDATE");
+            matter.setFolw("qa");
+
+            Set<DocumentHistory> documentHistories = matter.getDocumentHistorys();
+            DocumentHistory documentHistory = new DocumentHistory();
+            documentHistory.setCreateBy(appUser);
+            documentHistory.setCreateDate(new Date());
+            documentHistory.setActionType("UPDATE");
+            documentHistory.setRemark("update material");
+            documentHistory.setStatus("UPDATE");
+            documentHistory.setMatter(matter);
+            documentHistories.add(documentHistory);
+
+            matter.setDocumentHistorys(documentHistories);
+            matterManager.insertMatter(matter);
             return new ResponseEntity<String>("{\"create\":true}", headers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("{\"create\":false}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -214,8 +297,7 @@ public class MtmsControllerJson {
         }
     }
 
-    private void uploadFile(MultipartFile spec, MultipartFile rohs, MultipartFile msds, MultipartFile halogen,
-                            String dateSpec, String dateMsds, String dateRohs, String dateHalogen,
+    private void uploadFile(MultipartFile spec, MultipartFile rohs, MultipartFile msds, MultipartFile halogen, String dateRohs, String dateHalogen,
                             MaterialType materialType, HttpServletRequest request, Matter matter) throws IOException{
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
@@ -223,25 +305,16 @@ public class MtmsControllerJson {
         String path = request.getRealPath("./resources/filePDF/");
         try {
             if(spec != null) {
-                String url = "/" +materialType.getTypeName() +"/SPEC/" + matter.getMaterialName() + "/" + spec.getOriginalFilename();
+                String url = "/" +materialType.getTypeName() +"/SPEC/" + matter.getMaterialName() + "/" + matter.getMaterialName() + "_SPEC.pdf";
                 File convFile = new File(path + url);
                 convFile.getParentFile().mkdirs();
                 matter.setSpec(url);
-
-                Date date = df.parse(dateSpec);
-                matter.setSpecDateTest(date);
-                cal.setTime(date);
-                cal.add(Calendar.YEAR, 1);
-                matter.setSpecEndDateTest(cal.getTime());
-                cal.add(Calendar.MONTH, -3);
-                matter.setSpecAlertDateTest(cal.getTime());
-
                 FileOutputStream fos = new FileOutputStream(convFile);
                 fos.write(spec.getBytes());
                 fos.close();
             }
             if(rohs != null) {
-                String url = "/" +materialType.getTypeName() +"/ROHS/" + matter.getMaterialName() + "/" + rohs.getOriginalFilename();
+                String url = "/" +materialType.getTypeName() +"/ROHS/" + matter.getMaterialName() + "/" + matter.getMaterialName() + "_ROHS.pdf";
                 File convFile = new File(path + url);
                 convFile.getParentFile().mkdirs();
                 matter.setRohs(url);
@@ -259,25 +332,17 @@ public class MtmsControllerJson {
                 fos.close();
             }
             if(msds != null) {
-                String url = "/" +materialType.getTypeName() +"/MSDS/" + matter.getMaterialName() + "/" + msds.getOriginalFilename();
+                String url = "/" +materialType.getTypeName() +"/MSDS/" + matter.getMaterialName() + "/" + matter.getMaterialName() + "_MSDS.pdf";
                 File convFile = new File(path + url);
                 convFile.getParentFile().mkdirs();
                 matter.setMsds(url);
-
-                Date date = df.parse(dateMsds);
-                matter.setMsdsDateTest(date);
-                cal.setTime(date);
-                cal.add(Calendar.YEAR, 1);
-                matter.setMsdsEndDateTest(cal.getTime());
-                cal.add(Calendar.MONTH, -3);
-                matter.setMsdsAlertDateTest(cal.getTime());
 
                 FileOutputStream fos = new FileOutputStream(convFile);
                 fos.write(msds.getBytes());
                 fos.close();
             }
             if(halogen != null) {
-                String url = "/" +materialType.getTypeName() +"/HALOGEN/" + matter.getMaterialName() + "/" + halogen.getOriginalFilename();
+                String url = "/" +materialType.getTypeName() +"/HALOGEN/" + matter.getMaterialName() + "/" + matter.getMaterialName() + "_HALOGEN.pdf";
                 File convFile = new File(path + url);
                 convFile.getParentFile().mkdirs();
                 matter.setHalogen(url);
@@ -296,6 +361,40 @@ public class MtmsControllerJson {
             }
         } catch (Exception e) {
                 e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/testJasper/create", method = RequestMethod.POST, headers = "Accept=application/json")
+    @ResponseBody
+    public ResponseEntity<String> testJasper(@RequestParam("data") String data, Principal principal, HttpServletRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+
+            String path = request.getRealPath("./resources/core/report/");
+            JRCsvDataSource ds = new JRCsvDataSource(new File(path + "/Data.csv"));
+            ds.setColumnNames(new String[] {"id", "name", "salary"});
+            String fileName = path + "/cocHana.jasper";
+            Map map = new HashMap();
+            map.put("lotNumber", jsonObject.getString("inputLotNumber"));
+            map.put("orderNumber", jsonObject.getString("inputOrderNumber"));
+            map.put("qty", jsonObject.getString("inputQty"));
+            map.put("partNumber", jsonObject.getString("inputPartNumber"));
+            map.put("revision", jsonObject.getString("inputRevision"));
+            map.put("remark", jsonObject.getString("inputRemark"));
+            map.put("issueName", jsonObject.getString("inputIssueName"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(fileName, map, ds);
+
+            String pathPdf = request.getRealPath("./resources/fileOutPutPDF/");
+            String pdfLink = pathPdf + "/kopeeno/output.pdf";
+            File pdf = new File(pdfLink);
+            pdf.getParentFile().mkdirs();
+            JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream(pdf));
+            String urlPdf = "kopeeno/output.pdf";
+            return new ResponseEntity<String>("{\"create\":true, \"urlPdf\":\"" + urlPdf + "\"}", headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("{\"create\":false}", headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

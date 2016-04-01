@@ -36,6 +36,11 @@ public class MatterService implements MatterManager{
     }
 
     @Override
+    public List<Matter> findAllMatterByStatusAndStatus(String status1, String status2) {
+        return matterDAO.findAllMatterByStatusAndStatus(status1, status2);
+    }
+
+    @Override
     public Matter findMatter(Long id) {
         return matterDAO.findMatter(id);
     }
@@ -44,4 +49,5 @@ public class MatterService implements MatterManager{
     public List<Matter> findAllMaterialGe(Date date) {
         return matterDAO.findAllMaterialGe(date);
     }
+
 }

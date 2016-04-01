@@ -9,7 +9,7 @@
         <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
     </definition>
 
-    <definition extends="openwindows" name="window">
+    <definition extends="foamtec" name="window">
         <put-attribute name="body" value="/WEB-INF/views/window.jsp"/>
     </definition>
 

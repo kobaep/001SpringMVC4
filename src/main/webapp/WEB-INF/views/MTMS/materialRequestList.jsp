@@ -8,8 +8,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-danger">
-                <div class="panel-heading">Material Waiting Follow Expired</div>
+            <div class="panel panel-warning">
+                <div class="panel-heading">Request Document</div>
                 <div class="panel-body">
                     <div style="height: 500px;" class="table-responsive">
                         <table class="table table-hover">
@@ -22,14 +22,15 @@
                                 <th>MSDS</th>
                                 <th>RoHS</th>
                                 <th>Halogen Free</th>
-                                <th>Create By</th>
+                                <th>Reason</th>
+                                <th>Request By</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="materialCreate" items="${materialExpired}" varStatus="loop">
+                            <c:forEach var="materialCreate" items="${materialsDoc}" varStatus="loop">
                                 <c:set var="materialCreateType" value="${materialCreate.materialType}"/>
-                                <c:set var="appuserCreate" value="${materialCreate.createBy}"/>
+                                <c:set var="appuserCreate" value="${materialCreate.updateBy}"/>
                                 <tr>
                                     <td>${loop.index + 1}</td>
                                     <td>${materialCreateType.typeName}</td>
@@ -66,6 +67,7 @@
                                             <td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <font color="red"><fmt:formatDate pattern="dd/MM/yyyy"  value="${materialCreate.halogenEndDateTest}" /></font></td>
                                         </c:otherwise>
                                     </c:choose>
+                                    <td>${materialCreate.reason}</td>
                                     <td>${appuserCreate.name}</td>
                                     <td>
                                         <a class="btn btn-primary btn-sm" href="${home}materialPrivate/${materialCreate.id}?update" role="button">
@@ -84,7 +86,7 @@
     <div class="row">
         <div class="col-sm-12">
             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Document OK,
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <font color="red">Date Document Expired</font>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <font color="red">Need Document</font>
         </div>
     </div>
 </div>

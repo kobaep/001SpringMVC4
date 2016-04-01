@@ -19,4 +19,6 @@ public interface MatterDAO {
     public Matter findMatter(Long id);
 
     public List<Matter> findAllMaterialGe(Date date);
+
+    public List<Matter> findAllMatterByStatusAndStatus(String status1,String status2);
 }

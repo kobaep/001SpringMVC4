@@ -16,7 +16,10 @@ public interface MatterManager {
 
     public List<Matter> findAllMatterByStatus(String status);
 
+    public List<Matter> findAllMatterByStatusAndStatus(String status1,String status2);
+
     public Matter findMatter(Long id);
 
     public List<Matter> findAllMaterialGe(Date date);
+
 }
